@@ -1,12 +1,11 @@
 name: flutter_ui_toolbox
 description: "A new Flutter project."
-
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-version: 1.0.0+1
-
+version: 0.0.1
+homepage: https://github.com/DevNimesh75/flutter_ui_toolbox
 environment:
-  sdk: ^3.6.1
+  sdk: ^3.5.4
+
 dependencies:
   flutter:
     sdk: flutter
