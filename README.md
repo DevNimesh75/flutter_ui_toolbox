@@ -21,4 +21,4 @@ This package extends the Flutter `Color` class with a variety of utility functio
 *   **Dark/Light Detection:** Determine if a color is considered dark or light.
 *   **Hex Conversion:** Convert a color to a hex string (`#RRGGBB` or `#AARRGGBB`).
 *   **Hex to Color:** Create a `Color` object from a hex string.
-*   **RGB to Color:** Create a `Color` object from RGB values.
+*   **RGB to Color:** Create a `Color` object from RGB values.  
