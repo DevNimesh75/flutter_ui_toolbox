@@ -1,24 +1,31 @@
 # flutter_ui_toolbox
- Flutter UI Toolbox
 
-# color_extensions
+ Flutter UI Toolbox is a lightweight, powerful, and easy-to-use package that provides essential extensions to simplify UI development in Flutter. From widget styling to context utilities, animations, device checks, and date formatting, this package offers dozens of time-saving utilities to boost productivity!
 
-A Flutter package that provides useful extensions to the `Color` class.
 
-[![Pub Version](https://img.shields.io/pub/v/color_extensions)](https://pub.dev/packages/color_extensions)
-[![Likes](https://img.shields.io/pub/likes/color_extensions)](https://pub.dev/packages/color_extensions)
-[![Popularity](https://img.shields.io/pub/popularity/color_extensions)](https://pub.dev/packages/color_extensions)
-[![Pub Points](https://img.shields.io/pub/points/color_extensions)](https://pub.dev/packages/color_extensions)
+## Platform Support
 
-## Description
+| Android | iOS | Web |
+| :-----: | :-: | :-: |
+|   ✔️    | ✔️  | ✔️  |
 
-This package extends the Flutter `Color` class with a variety of utility functions to manipulate colors, determine their darkness or lightness, and convert them to and from hex strings.
 
-## Features
+## Extensions
 
-*   **Adjust Brightness:** Lighten or darken a color by a specified percentage.
-*   **Opacity Control:** Create a color with a specific opacity level (0-100%).
-*   **Dark/Light Detection:** Determine if a color is considered dark or light.
-*   **Hex Conversion:** Convert a color to a hex string (`#RRGGBB` or `#AARRGGBB`).
-*   **Hex to Color:** Create a `Color` object from a hex string.
-*   **RGB to Color:** Create a `Color` object from RGB values.  
+### color_extension
+A useful extensions to the `Color` class.
+
+#### Examples
+
+##### Adjusting Brightness
+
+Color baseColor = Colors.blue;
+Color lighterColor = baseColor.adjustBrightness(20); // Lightens by 20%
+Color darkerColor = baseColor.adjustBrightness(-20); // Darkens by 20%
+
+##### Modify Opacity Easily
+
+Color semiTransparent = Colors.red.withOpacityLevel(50); // 50% opacity
+
+##### Modify Opacity Easily
+

@@ -1,8 +1,10 @@
 name: flutter_ui_toolbox
-description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.1
-homepage: https://github.com/DevNimesh75/flutter_ui_toolbox
+description: "Flutter UI Toolbox is a lightweight, powerful, and easy-to-use package that provides essential extensions to simplify UI development in Flutter. From widget styling to context utilities, animations, device checks, and date formatting, this package offers dozens of time-saving utilities to boost productivity!"
+#publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 0.0.3
+repository: https://github.com/DevNimesh75/flutter_ui_toolbox
+issue_tracker: https://github.com/DevNimesh75/flutter_ui_toolbox/issues
+
 environment:
   sdk: ^3.5.4
 

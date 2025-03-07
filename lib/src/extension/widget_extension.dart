@@ -99,14 +99,6 @@ extension WidgetExtensions on Widget {
   /// 🏞 **Centers a widget inside its parent.**
   Widget get centered => Center(child: this);
 
-  /// 📐 **Adds padding around a widget.**
-  Widget paddingAll(double value) => Padding(padding: EdgeInsets.all(value), child: this);
-
-  /// ↔ **Adds symmetric padding (horizontal & vertical).**
-  Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) => Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-        child: this,
-      );
 
   /// 🎨 **Wraps widget in a container with a background color.**
   Widget withBackground(Color color) {
