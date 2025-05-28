@@ -99,7 +99,6 @@ extension WidgetExtensions on Widget {
   /// 🏞 **Centers a widget inside its parent.**
   Widget get centered => Center(child: this);
 
-
   /// 🎨 **Wraps widget in a container with a background color.**
   Widget withBackground(Color color) {
     return Container(color: color, child: this);
@@ -147,4 +146,18 @@ extension WidgetExtensions on Widget {
   /// Text('Hello').withPadding(padding: EdgeInsets.all(16));
   /// ```
   Widget withPadding({required EdgeInsets padding}) => Padding(padding: padding, child: this);
+
+  /// add FittedBox to parent widget
+  Widget fit({BoxFit? fit, AlignmentGeometry? alignment}) {
+    return FittedBox(
+      fit: fit ?? BoxFit.contain,
+      alignment: alignment ?? Alignment.center,
+      child: this,
+    );
+  }
+}
+
+extension WidgetExtension on Widget? {
+  /// Validate given widget is not null and returns given value if null.
+  Widget validate({Widget value = const Offstage()}) => this ?? value;
 }

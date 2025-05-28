@@ -27,5 +27,4 @@ Color darkerColor = baseColor.adjustBrightness(-20); // Darkens by 20%
 
 Color semiTransparent = Colors.red.withOpacityLevel(50); // 50% opacity
 
-##### Modify Opacity Easily
 

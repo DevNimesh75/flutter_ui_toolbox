@@ -6,7 +6,7 @@ extension FutureExtensions on int {
   /// ```dart
   /// await 1000.delay; // Delays for 1 second (1000 milliseconds)
   /// ```
-  Future<void> get delay async => Future.delayed(Duration(milliseconds: this));
+  Future<void> get millisecondsDelay async => Future.delayed(Duration(milliseconds: this));
 
   /// Delays execution by the given number of **seconds**.
   ///

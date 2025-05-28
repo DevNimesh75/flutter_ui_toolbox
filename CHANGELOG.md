@@ -9,3 +9,8 @@
 ## 0.0.3
 
 - Resolved Padding Extension conflicts
+
+## 0.0.4
+
+- Resolved the extension issues 
+- Added the flutter Custom widgets support 

@@ -8,7 +8,7 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// Size screenSize = context.screenSize;
   /// ```
-  Size get screenSize => MediaQuery.of(this).size;
+  Size get getScreenSize => MediaQuery.of(this).size;
 
   /// 📏 **Returns the screen width.**
   ///
@@ -19,7 +19,7 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// double width = context.screenWidth;
   /// ```
-  double get screenWidth => MediaQuery.of(this).size.width;
+  double get getScreenWidth => MediaQuery.of(this).size.width;
 
   /// 📏 **Returns the screen height.**
   ///
@@ -27,7 +27,7 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// double height = context.screenHeight;
   /// ```
-  double get screenHeight => MediaQuery.of(this).size.height;
+  double get getScreenHeight => MediaQuery.of(this).size.height;
 
   /// 🔍 **Returns the device's pixel ratio.**
   ///
@@ -51,7 +51,7 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// double statusBar = context.statusBarHeight;
   /// ```
-  double get statusBarHeight => MediaQuery.of(this).padding.top;
+  double get getStatusBarHeight => MediaQuery.of(this).padding.top;
 
   /// 🏠 **Returns the navigation bar height.**
   ///
@@ -59,15 +59,15 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// double navBarHeight = context.navigationBarHeight;
   /// ```
-  double get navigationBarHeight => MediaQuery.of(this).padding.bottom;
+  double get getNavigationBarHeight => MediaQuery.of(this).padding.bottom;
 
   /// 🎨 **Returns the current theme.**
   ///
   /// Example:
   /// ```dart
-  /// ThemeData theme = context.theme;
+  /// ThemeData theme = context.theme;  ==>  ( Theme.of(this) )
   /// ```
-  ThemeData get theme => Theme.of(this);
+  ThemeData get getTheme => Theme.of(this);
 
   /// 🔠 **Returns the text theme of the current theme.**
   ///
@@ -75,7 +75,7 @@ extension BuildContextExtensions on BuildContext {
   /// ```dart
   /// TextTheme textTheme = context.textTheme;
   /// ```
-  TextTheme get textTheme => theme.textTheme;
+  TextTheme get textTheme => getTheme.textTheme;
 
   /// 📝 **Returns the default text style of the context.**
   ///
@@ -110,22 +110,22 @@ extension BuildContextExtensions on BuildContext {
   OverlayState? get overlayState => Overlay.of(this);
 
   /// 🎨 **Returns primary color of the theme.**
-  Color get primaryColor => theme.primaryColor;
+  Color get primaryColor => getTheme.primaryColor;
 
   /// 🎨 **Returns the accent (secondary) color of the theme.**
-  Color get accentColor => theme.colorScheme.secondary;
+  Color get accentColor => getTheme.colorScheme.secondary;
 
   /// 🎨 **Returns scaffold background color.**
-  Color get scaffoldBackgroundColor => theme.scaffoldBackgroundColor;
+  Color get scaffoldBackgroundColor => getTheme.scaffoldBackgroundColor;
 
   /// 🎨 **Returns card color of the theme.**
-  Color get cardColor => theme.cardColor;
+  Color get cardColor => getTheme.cardColor;
 
   /// 🎨 **Returns divider color of the theme.**
-  Color get dividerColor => theme.dividerColor;
+  Color get dividerColor => getTheme.dividerColor;
 
   /// 🎨 **Returns icon color of the theme.**
-  Color get iconColor => theme.iconTheme.color ?? Colors.black;
+  Color get iconColor => getTheme.iconTheme.color ?? Colors.black;
 
   /// 🎯 **Requests focus to the given `FocusNode`.**
   ///
@@ -144,13 +144,13 @@ extension BuildContextExtensions on BuildContext {
   void unFocus(FocusNode focus) => focus.unfocus();
 
   /// 📱 **Returns `true` if the device is a phone.**
-  bool get isPhone => screenWidth < 600; // Assuming 600px as tablet breakpoint
+  bool get isPhone => getScreenWidth < 600; // Assuming 600px as tablet breakpoint
 
   /// 📱 **Returns `true` if the device is a tablet.**
-  bool get isTablet => screenWidth >= 600 && screenWidth < 1200;
+  bool get isTablet => getScreenWidth >= 600 && getScreenWidth < 1200;
 
   /// 🖥 **Returns `true` if the device is a desktop.**
-  bool get isDesktop => screenWidth >= 1200;
+  bool get isDesktop => getScreenWidth >= 1200;
 
   /// 🔄 **Returns the current screen orientation.**
   Orientation get orientation => MediaQuery.of(this).orientation;
@@ -168,7 +168,7 @@ extension BuildContextExtensions on BuildContext {
   void pop<T extends Object>([T? result]) => Navigator.pop(this, result);
 
   /// 🏆 **Returns the current platform type.**
-  TargetPlatform get platform => theme.platform;
+  TargetPlatform get platform => getTheme.platform;
 
   /// 🤖 **Returns `true` if running on Android.**
   bool get isAndroid => platform == TargetPlatform.android;

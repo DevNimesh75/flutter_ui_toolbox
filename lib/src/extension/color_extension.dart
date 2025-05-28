@@ -11,23 +11,11 @@ extension ColorExtensions on Color {
   /// Color lighterColor = baseColor.adjustBrightness(20); // Lightens by 20%
   /// Color darkerColor = baseColor.adjustBrightness(-20); // Darkens by 20%
   /// ```
-  Color adjustBrightness(double amount) {
+  Color adjustBrightnessX(double amount) {
     assert(amount >= -100 && amount <= 100, 'Brightness adjustment must be between -100 and 100');
     HSLColor hsl = HSLColor.fromColor(this);
     double lightness = (hsl.lightness + (amount / 100)).clamp(0.0, 1.0);
     return hsl.withLightness(lightness).toColor();
-  }
-
-  /// Returns a color with increased opacity.
-  ///
-  /// - [opacity]: The opacity percentage (0 - 100).
-  /// - Example:
-  /// ```dart
-  /// Color transparentColor = Colors.red.withOpacityLevel(50); // 50% opacity
-  /// ```
-  Color withOpacityLevel(double opacity) {
-    assert(opacity >= 0 && opacity <= 100, 'Opacity must be between 0 and 100');
-    return withOpacity(opacity / 100);
   }
 
   /// Returns `true` if the color is considered dark.
@@ -37,7 +25,7 @@ extension ColorExtensions on Color {
   /// bool isDark = Colors.black.isDark; // Returns `true`
   /// ```
   bool get isDark {
-    double brightness = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+    double brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
     return brightness < 0.5;
   }
 
@@ -84,5 +72,28 @@ extension ColorExtensions on Color {
   /// ```
   static Color fromRGB(int red, int green, int blue, [double opacity = 1.0]) {
     return Color.fromRGBO(red, green, blue, opacity);
+  }
+
+  /// Returns Color from hex String.
+  ///
+  /// ```dart
+  /// Color color = getColorFromHex('#E5E5E5');
+  ///
+  /// returns default color if not able to parse given hex
+  /// ```
+  Color getColorFromHex(String hexColor, {Color? defaultColor}) {
+    if (hexColor.isEmpty) {
+      if (defaultColor != null) {
+        return defaultColor;
+      } else {
+        throw ArgumentError('Can not parse provided hex $hexColor');
+      }
+    }
+
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF$hexColor";
+    }
+    return Color(int.parse(hexColor, radix: 16));
   }
 }
