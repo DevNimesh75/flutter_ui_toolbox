@@ -69,7 +69,7 @@ extension WidgetExtensions on Widget {
     return InkWell(
       onTap: function,
       borderRadius: borderRadius ?? BorderRadius.circular(8),
-      splashColor: splashColor ?? Colors.grey.withOpacity(0.2),
+      splashColor: splashColor ?? Colors.grey.withAlpha(30),
       hoverColor: hoverColor,
       highlightColor: highlightColor,
       focusColor: focusColor,
@@ -98,15 +98,6 @@ extension WidgetExtensions on Widget {
 
   /// 🏞 **Centers a widget inside its parent.**
   Widget get centered => Center(child: this);
-
-  /// 📐 **Adds padding around a widget.**
-  Widget paddingAll(double value) => Padding(padding: EdgeInsets.all(value), child: this);
-
-  /// ↔ **Adds symmetric padding (horizontal & vertical).**
-  Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) => Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-        child: this,
-      );
 
   /// 🎨 **Wraps widget in a container with a background color.**
   Widget withBackground(Color color) {
@@ -155,4 +146,18 @@ extension WidgetExtensions on Widget {
   /// Text('Hello').withPadding(padding: EdgeInsets.all(16));
   /// ```
   Widget withPadding({required EdgeInsets padding}) => Padding(padding: padding, child: this);
+
+  /// add FittedBox to parent widget
+  Widget fit({BoxFit? fit, AlignmentGeometry? alignment}) {
+    return FittedBox(
+      fit: fit ?? BoxFit.contain,
+      alignment: alignment ?? Alignment.center,
+      child: this,
+    );
+  }
+}
+
+extension WidgetExtension on Widget? {
+  /// Validate given widget is not null and returns given value if null.
+  Widget validate({Widget value = const Offstage()}) => this ?? value;
 }

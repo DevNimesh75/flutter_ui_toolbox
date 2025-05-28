@@ -3,22 +3,6 @@ import 'package:flutter/material.dart';
 
 /// A set of extensions to easily access screen size and safe area height.
 extension ScreenSize on BuildContext {
-  /// Returns the full screen width of the device.
-  ///
-  /// Example:
-  /// ```dart
-  /// double width = context.screenWidth;
-  /// ```
-  double get screenWidth => MediaQuery.of(this).size.width;
-
-  /// Returns the full screen height of the device.
-  ///
-  /// Example:
-  /// ```dart
-  /// double height = context.screenHeight;
-  /// ```
-  double get screenHeight => MediaQuery.of(this).size.height;
-
   /// Returns the height of the screen excluding the top and bottom safe areas.
   ///
   /// Useful for layouts where you need to exclude the status bar and navigation bar.

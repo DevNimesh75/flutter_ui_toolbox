@@ -92,4 +92,10 @@ extension PaddingExtensions on Widget {
         padding: EdgeInsets.only(right: value),
         child: this,
       );
+
+  /// set visibility
+  Widget visible(bool visible, {Widget? defaultWidget}) {
+    return visible ? this : (defaultWidget ?? SizedBox());
+  }
+
 }

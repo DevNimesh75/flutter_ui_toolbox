@@ -1,48 +1,63 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_ui_toolbox/flutter_ui_toolbox.dart';
 
-/// Extension to determine the platform the app is running on.
-extension DeviceExtensions on Object {
-  /// 🖥 **Returns `true` if the app is running on Web.**
-  bool get isWeb => kIsWeb;
+/// return true if running on Web
+bool get isWeb => kIsWeb;
 
-  /// 📱 **Returns `true` if running on a mobile OS (iOS or Android).**
-  bool get isMobile => !isWeb && (Platform.isIOS || Platform.isAndroid);
+/// return true if running on Mobile OS
+bool get isMobile => !isWeb && (Platform.isIOS || Platform.isAndroid);
 
-  /// 🖥 **Returns `true` if running on a desktop OS (Windows, macOS, Linux).**
-  bool get isDesktop =>
-      !isWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux);
+/// return true if running on Desktop
+bool get isDesktop =>
+    !isWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux);
 
-  /// 🍏 **Returns `true` if running on an Apple device (iOS/macOS).**
-  bool get isApple => !isWeb && (Platform.isIOS || Platform.isMacOS);
+/// return true if running on iOS or macOS
+bool get isApple => !isWeb && (Platform.isIOS || Platform.isMacOS);
 
-  /// 🤖 **Returns `true` if running on a Google platform (Android/Fuchsia).**
-  bool get isGoogle => !isWeb && (Platform.isAndroid || Platform.isFuchsia);
+/// return true if running on Android of Fuchsia
+bool get isGoogle => !isWeb && (Platform.isAndroid || Platform.isFuchsia);
 
-  /// 📱 **Returns `true` if running on Android.**
-  bool get isAndroid => !isWeb && Platform.isAndroid;
+/// return true if running on Android
+bool get isAndroid => !isWeb && Platform.isAndroid;
 
-  /// 🍎 **Returns `true` if running on iOS.**
-  bool get isIOS => !isWeb && Platform.isIOS;
+@Deprecated('Use isIOS instead')
+bool get isIos => !isWeb && Platform.isIOS;
 
-  /// 🍏 **Returns `true` if running on macOS.**
-  bool get isMacOS => !isWeb && Platform.isMacOS;
+/// return true if running on iOS
+bool get isIOS => !isWeb && Platform.isIOS;
 
-  /// 🐧 **Returns `true` if running on Linux.**
-  bool get isLinux => !isWeb && Platform.isLinux;
+/// return true if running on macOs
+bool get isMacOS => !isWeb && Platform.isMacOS;
 
-  /// 🏁 **Returns `true` if running on Windows.**
-  bool get isWindows => !isWeb && Platform.isWindows;
+/// return true if running on Linux
+bool get isLinux => !isWeb && Platform.isLinux;
 
-  /// 🔄 **Returns `true` if running on Fuchsia (Google's experimental OS).**
-  bool get isFuchsia => !isWeb && Platform.isFuchsia;
+/// return true if running on Windows
+bool get isWindows => !isWeb && Platform.isWindows;
 
-  /// 🛠 **Returns the name of the operating system (e.g., "android", "ios", "windows").**
-  String get operatingSystemName => Platform.operatingSystem;
+/// return OS name
+String get operatingSystemName => Platform.operatingSystem;
 
-  /// 🔢 **Returns the OS version as a string.**
-  String get operatingSystemVersion => Platform.operatingSystemVersion;
+/// return OS version
+String get operatingSystemVersion => Platform.operatingSystemVersion;
 
-  /// 💾 **Returns the system architecture (e.g., "x86_64", "arm64").**
-  String get operatingSystemArchitecture => Platform.version.split(' ').last;
+
+enum DeviceSize { mobile, tablet, desktop }
+
+extension LayoutUtils on BoxConstraints {
+  /// returns DeviceSize
+  DeviceSize get device {
+    if (maxWidth >= desktopBreakpointGlobal) {
+      return DeviceSize.desktop;
+    }
+    if (maxWidth >= tabletBreakpointGlobal) {
+      return DeviceSize.tablet;
+    }
+    return DeviceSize.mobile;
+  }
 }
+
+
+
