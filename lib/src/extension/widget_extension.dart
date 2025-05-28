@@ -69,7 +69,7 @@ extension WidgetExtensions on Widget {
     return InkWell(
       onTap: function,
       borderRadius: borderRadius ?? BorderRadius.circular(8),
-      splashColor: splashColor ?? Colors.grey.withOpacity(0.2),
+      splashColor: splashColor ?? Colors.grey.withAlpha(30),
       hoverColor: hoverColor,
       highlightColor: highlightColor,
       focusColor: focusColor,

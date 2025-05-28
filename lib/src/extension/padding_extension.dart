@@ -95,7 +95,7 @@ extension PaddingExtensions on Widget {
 
   /// set visibility
   Widget visible(bool visible, {Widget? defaultWidget}) {
-    return visible ? this! : (defaultWidget ?? SizedBox());
+    return visible ? this : (defaultWidget ?? SizedBox());
   }
 
 }
