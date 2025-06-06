@@ -14,3 +14,8 @@
 
 - Resolved the extension issues 
 - Added the flutter Custom widgets support 
+
+- ## 0.0.5
+
+- Updated the Readme file 
+- Added Example files for users
