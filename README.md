@@ -824,7 +824,7 @@ Marquee(
 ),
 ```
 
-## ⭐⭐⭐ If you like the package, a star to the repo will mean a lot.
+## ⭐⭐⭐ If you like the package, a star to this repo will means a lot.
 
 ## You can also contribute by adding new widgets or helpful methods.
 
