@@ -1,0 +1,9 @@
+### To release the update on pub.dev follow the below steps
+
+Step 1: Update the Version on the pubspec.yaml file
+
+Step 2: Update the Change log file
+
+Step 3: run ``` dart pub publish --dry-run ``` to check your package for issues without actually publishing it.
+
+Step 4: run the final command ``` dart pub publish ``` to publish your package to the pub.dev repository.
