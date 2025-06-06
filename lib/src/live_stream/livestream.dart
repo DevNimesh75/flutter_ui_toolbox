@@ -35,6 +35,8 @@ import 'dart:collection';
 /// // Clearing all events
 /// liveStream.disposeAllKeys();
 /// ```
+
+/// Live stream main code
 class LiveStream {
   final _DataStore _storage = _DataStore.getInstance();
 
