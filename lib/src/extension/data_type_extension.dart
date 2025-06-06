@@ -1,8 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ui_toolbox/flutter_ui_toolbox.dart';
-import 'dart:math';
-
 
 /// Extension on `String?` to handle null safety and provide useful utilities.
 extension StringExtensions on String? {
@@ -61,12 +61,12 @@ extension StringExtensions on String? {
   /// ```
   bool toBool() => (this?.toLowerCase() == 'true');
 
-    /// Get Color from HEX String
+  /// Get Color from HEX String
   Color toColor({Color? defaultColor}) {
     return getColorFromHex(validate(), defaultColor: defaultColor);
   }
 
-   /// Copy String to Clipboard
+  /// Copy String to Clipboard
   Future<void> copyToClipboard() async {
     await Clipboard.setData(ClipboardData(text: validate()));
   }
@@ -83,8 +83,78 @@ extension StringExtensions on String? {
   /// Check URL validation
   bool validateURL() => hasMatch(this, Patterns.url);
 
+  String mask({MaskType maskType = MaskType.auto, bool? isMaskingEnabled}) {
+    String data = validate();
+    isMaskingEnabled ??= isMaskingEnabledGlobal;
 
+    if (!isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
+    if (isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
 
+    if (maskType == MaskType.auto) {
+      if (data.validateEmail()) {
+        return maskEmail();
+      } else if (data.validatePhone()) {
+        return maskPhone();
+      }
+    }
+    if (maskType == MaskType.email) {
+      return maskEmail();
+    } else if (maskType == MaskType.phone) {
+      return maskPhone();
+    }
+
+    return data; // Return original data if something goes wrong
+  }
+
+  /// Mask email (e.g., user@example.com -> u***@example.com)
+  String maskEmail({bool? isMaskingEnabled}) {
+    String data = validate();
+
+    isMaskingEnabled ??= isMaskingEnabledGlobal;
+
+    if (!isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
+    if (isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
+
+    final parts = data.split('@');
+    if (parts.length == 2) {
+      final namePart = parts[0].substring(0, 1);
+      final domainPart = parts[1];
+      final maskedName = namePart + '*' * (parts[0].length - 1);
+      return '$maskedName@$domainPart';
+    }
+    return data;
+  }
+
+  /// Mask phone (e.g., 1234567890 -> 12****7890)
+  String maskPhone({bool? isMaskingEnabled}) {
+    String data = validate();
+
+    isMaskingEnabled ??= isMaskingEnabledGlobal;
+
+    if (!isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
+    if (isMaskingEnabledGlobal && !isMaskingEnabled) {
+      return data; // Return original data if masking is disabled
+    }
+
+    final length = data.length;
+    if (length > 4) {
+      final prefix = data.substring(0, 2);
+      final suffix = data.substring(length - 2);
+      final maskedMiddle = '*' * (length - 4);
+      return '$prefix$maskedMiddle$suffix';
+    }
+    return data;
+  }
 }
 
 /// Extension on `bool?` to handle null values and provide utility methods.
@@ -126,7 +196,7 @@ extension IntExtensions on int? {
   /// ```
   bool toBool() => this == 1;
 
-   /// Returns microseconds duration
+  /// Returns microseconds duration
   /// 5.microseconds
   Duration get microseconds => Duration(microseconds: validate());
 
@@ -159,7 +229,8 @@ extension IntExtensions on int? {
   /// 5.days
   /// ```
   Duration get days => Duration(days: validate());
- /// Leaves given height of space
+
+  /// Leaves given height of space
   Widget get height => SizedBox(height: this?.toDouble());
 
   double get dynamicHeight {
@@ -181,6 +252,7 @@ extension IntExtensions on int? {
   bool isSuccessful() => this! >= 200 && this! <= 206;
 
   BorderRadius borderRadius([double? val]) => radius(val);
+
   /// Returns if a number is between `first` and `second`
   /// ```dart
   /// 100.isBetween(50, 150) // true;
@@ -285,7 +357,6 @@ extension IntExtensions on int? {
     }
     return false;
   }
-
 }
 
 /// Extension on `List<T>?` to handle null safety and provide list operations.
@@ -442,4 +513,3 @@ extension DoubleExtensions on double? {
   /// Returns Size
   Size get size => Size(this!, this!);
 }
-
