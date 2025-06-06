@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_toolbox/flutter_ui_toolbox.dart';
-import 'package:flutter_ui_toolbox/src/utils/constants.dart';
-import 'package:flutter_ui_toolbox/src/utils/shared_pref.dart';
 
 /// Model class for Locales
 class LanguageDataModel {

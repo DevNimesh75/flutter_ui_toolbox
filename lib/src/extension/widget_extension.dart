@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_toolbox/flutter_ui_toolbox.dart';
 
 /// Extension on Widget for enhanced UI modifications.
 extension WidgetExtensions on Widget {
@@ -154,6 +155,20 @@ extension WidgetExtensions on Widget {
       alignment: alignment ?? Alignment.center,
       child: this,
     );
+  }
+
+  /// Launch a new screen
+  Future<T?> launch<T>(BuildContext context, {bool isNewTask = false, PageRouteAnimation? pageRouteAnimation, Duration? duration}) async {
+    if (isNewTask) {
+      return await Navigator.of(context).pushAndRemoveUntil(
+        buildPageRoute(this, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+        (route) => false,
+      );
+    } else {
+      return await Navigator.of(context).push(
+        buildPageRoute(this, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+      );
+    }
   }
 }
 

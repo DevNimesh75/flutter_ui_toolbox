@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'flutter_ui_toolbox.dart';
 
+/// package export
+export 'package:fluttertoast/fluttertoast.dart';
 /// chatgpt
 export 'src/chatgpt/chat_gpt.dart';
 export 'src/chatgpt/chat_gpt_component.dart';
