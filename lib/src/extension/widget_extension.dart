@@ -161,12 +161,12 @@ extension WidgetExtensions on Widget {
   Future<T?> launch<T>(BuildContext context, {bool isNewTask = false, PageRouteAnimation? pageRouteAnimation, Duration? duration}) async {
     if (isNewTask) {
       return await Navigator.of(context).pushAndRemoveUntil(
-        buildPageRoute(this!, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+        buildPageRoute(this, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
         (route) => false,
       );
     } else {
       return await Navigator.of(context).push(
-        buildPageRoute(this!, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+        buildPageRoute(this, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
       );
     }
   }
