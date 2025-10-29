@@ -216,7 +216,6 @@ Future<T?> push<T>(
       return null;
     }
   }
-  return null;
 }
 
 /// Dispose current screen or close current dialog
