@@ -5,6 +5,7 @@ import 'flutter_ui_toolbox.dart';
 
 /// package export
 export 'package:fluttertoast/fluttertoast.dart';
+
 /// chatgpt
 export 'src/chatgpt/chat_gpt.dart';
 export 'src/chatgpt/chat_gpt_component.dart';
@@ -44,6 +45,7 @@ export 'src/utils/size_config.dart';
 export 'src/utils/system_utils.dart';
 export 'src/utils/text_styles.dart';
 export 'src/utils/time_formatter.dart';
+
 /// widget exports
 export 'src/widgets/animatedList/animated_configurations.dart';
 export 'src/widgets/animatedList/animated_list_view.dart';
@@ -166,7 +168,7 @@ ChatGPTConfig chatGPTConfigGlobal = ChatGPTConfig();
 const channelName = 'flutter_ui_toolbox';
 final navigatorKey = GlobalKey<NavigatorState>();
 
-get getContext => navigatorKey.currentState?.overlay?.context;
+BuildContext? get getContext => navigatorKey.currentState?.overlay?.context;
 
 LiveStream liveStream = LiveStream();
 
@@ -195,20 +197,35 @@ Future<T?> push<T>(
   Duration? duration,
 }) async {
   if (isNewTask) {
-    return await Navigator.of(getContext).pushAndRemoveUntil(
-      buildPageRoute(widget, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
-      (route) => false,
-    );
+    if (getContext != null) {
+      return await Navigator.of(getContext!).pushAndRemoveUntil(
+        buildPageRoute(widget, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+        (route) => false,
+      );
+    } else {
+      log("Error: Get context not found, please set the navigatorKey to perform this action");
+      return null;
+    }
   } else {
-    return await Navigator.of(getContext).push(
-      buildPageRoute(widget, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
-    );
+    if (getContext != null) {
+      return await Navigator.of(getContext!).push(
+        buildPageRoute(widget, pageRouteAnimation ?? pageRouteAnimationGlobal, duration),
+      );
+    } else {
+      log("Error: Get context not found, please set the navigatorKey to perform this action");
+      return null;
+    }
   }
+  return null;
 }
 
 /// Dispose current screen or close current dialog
 void pop([Object? object]) {
-  if (Navigator.canPop(getContext)) Navigator.pop(getContext, object);
+  if (getContext != null) {
+    if (Navigator.canPop(getContext!)) Navigator.pop(getContext!, object);
+  } else {
+    log("Error: Get context not found, please set the navigatorKey to perform this action");
+  }
 }
 
 void main() {

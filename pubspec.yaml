@@ -1,8 +1,8 @@
 name: flutter_ui_toolbox
-description: "Flutter UI Toolbox is a lightweight, powerful, and easy-to-use package that provides essential extensions to simplify UI development in Flutter. From widget styling to context utilities, animations, device checks, and date formatting, this package offers dozens of time-saving utilities to boost productivity!"
+description: "Flutter UI Toolbox is a lightweight and easy-to-use package that provides essential extensions to simplify UI development in Flutter."
 
 #publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.5
+version: 0.0.6
 repository: https://github.com/DevNimesh75/flutter_ui_toolbox
 issue_tracker: https://github.com/DevNimesh75/flutter_ui_toolbox/issues
 
@@ -19,18 +19,18 @@ dependencies:
 
   #general packages
   intl: ^0.20.2
-  fluttertoast: ^8.2.12
+  fluttertoast: ^9.0.0
   shared_preferences: ^2.5.3
   web: ^1.1.1
   plugin_platform_interface: ^2.1.8
-  connectivity_plus: ^6.1.4
-  http: ^1.4.0
+  connectivity_plus: ^7.0.0
+  http: ^1.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 
 flutter:

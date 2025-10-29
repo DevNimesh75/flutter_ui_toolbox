@@ -1,21 +1,26 @@
-## 0.0.1
 
-- Added Dart Extension Support 
+## 0.0.6
 
-## 0.0.2
+- Updated the Latest libraries support
 
-- Updated Import settings
+## 0.0.5
+
+- Updated the Readme file
+- Added Example files for users
+
+## 0.0.4
+
+- Resolved the extension issues
+- Added the flutter Custom widgets support
 
 ## 0.0.3
 
 - Resolved Padding Extension conflicts
 
-## 0.0.4
+## 0.0.2
 
-- Resolved the extension issues 
-- Added the flutter Custom widgets support 
+- Updated Import settings
 
-- ## 0.0.5
+## 0.0.1
 
-- Updated the Readme file 
-- Added Example files for users
+- Added Dart Extension Support

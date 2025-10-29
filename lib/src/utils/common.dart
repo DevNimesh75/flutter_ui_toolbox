@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ui_toolbox/flutter_ui_toolbox.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 /// Make any variable nullable
 T? makeNullable<T>(T? value) => value;
@@ -62,10 +61,8 @@ void toasty(
         boxShadow: defaultBoxShadow(),
         borderRadius: borderRadius ?? defaultToastBorderRadiusGlobal,
       ),
-      padding:
-          padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-      child: Text(text.validate(),
-          style: boldTextStyle(color: textColor ?? defaultToastTextColor)),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+      child: Text(text.validate(), style: boldTextStyle(color: textColor ?? defaultToastTextColor)),
     ),
     gravity: gravity ?? defaultToastGravityGlobal,
     toastDuration: duration,
@@ -155,20 +152,7 @@ Future<dynamic> pasteObject() async {
 }
 
 /// Enum for Link Provider
-enum LinkProvider {
-  PLAY_STORE,
-  APPSTORE,
-  FACEBOOK,
-  INSTAGRAM,
-  LINKEDIN,
-  TWITTER,
-  YOUTUBE,
-  REDDIT,
-  TELEGRAM,
-  WHATSAPP,
-  FB_MESSENGER,
-  GOOGLE_DRIVE
-}
+enum LinkProvider { PLAY_STORE, APPSTORE, FACEBOOK, INSTAGRAM, LINKEDIN, TWITTER, YOUTUBE, REDDIT, TELEGRAM, WHATSAPP, FB_MESSENGER, GOOGLE_DRIVE }
 
 /// Use getSocialMediaLink function to build social media links
 String getSocialMediaLink(LinkProvider linkProvider, {String url = ''}) {
@@ -208,8 +192,7 @@ double radians(double degrees) => degrees * degrees2Radians;
 
 /// Executes a function after the build is created.
 void afterBuildCreated(Function()? onCreated) {
-  makeNullable(SchedulerBinding.instance)!
-      .addPostFrameCallback((_) => onCreated?.call());
+  makeNullable(SchedulerBinding.instance)!.addPostFrameCallback((_) => onCreated?.call());
 }
 
 /// Widget wrapper for animated dialog transitions.
@@ -252,9 +235,7 @@ Widget dialogAnimatedWrapperWidget({
     // Animation for sliding the dialog from bottom to top.
     case DialogAnimation.SLIDE_BOTTOM_TOP:
       return SlideTransition(
-        position: Tween(begin: Offset(0, 1), end: Offset.zero)
-            .chain(CurveTween(curve: curve))
-            .animate(animation),
+        position: Tween(begin: Offset(0, 1), end: Offset.zero).chain(CurveTween(curve: curve)).animate(animation),
         child: Opacity(
           opacity: animation.value,
           child: FadeTransition(opacity: animation, child: child),
@@ -264,9 +245,7 @@ Widget dialogAnimatedWrapperWidget({
     // Animation for sliding the dialog from left to right.
     case DialogAnimation.SLIDE_LEFT_RIGHT:
       return SlideTransition(
-        position: Tween(begin: Offset(1.0, 0.0), end: Offset.zero)
-            .chain(CurveTween(curve: curve))
-            .animate(animation),
+        position: Tween(begin: Offset(1.0, 0.0), end: Offset.zero).chain(CurveTween(curve: curve)).animate(animation),
         child: Opacity(
           opacity: animation.value,
           child: FadeTransition(opacity: animation, child: child),
@@ -276,9 +255,7 @@ Widget dialogAnimatedWrapperWidget({
     // Animation for sliding the dialog from right to left.
     case DialogAnimation.SLIDE_RIGHT_LEFT:
       return SlideTransition(
-        position: Tween(begin: Offset(-1, 0), end: Offset.zero)
-            .chain(CurveTween(curve: curve))
-            .animate(animation),
+        position: Tween(begin: Offset(-1, 0), end: Offset.zero).chain(CurveTween(curve: curve)).animate(animation),
         child: Opacity(
           opacity: animation.value,
           child: FadeTransition(opacity: animation, child: child),

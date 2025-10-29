@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:math' as math;
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -13,8 +13,7 @@ import 'dart:ui';
 ///
 /// Returns:
 ///   A List of Lists representing the RGB values of valid pixels.
-List<List<int>> _createPixelArray(
-    Uint8List imgData, int pixelCount, int quality) {
+List<List<int>> _createPixelArray(Uint8List imgData, int pixelCount, int quality) {
   final pixels = imgData;
   List<List<int>> pixelArray = [];
   int offset, r, g, b;
@@ -70,9 +69,7 @@ List<int> _validateOptions(int? colorCount, int? quality) {
 /// Returns:
 ///   A Future containing the palette as a List of Lists of RGB values,
 ///   or null if palette generation fails.
-Future<List<List<int>>?> getPaletteFromBytes(
-    Uint8List imageData, int width, int height,
-    [int? colorCount, int? quality]) async {
+Future<List<List<int>>?> getPaletteFromBytes(Uint8List imageData, int width, int height, [int? colorCount, int? quality]) async {
   final options = _validateOptions(colorCount, quality);
   colorCount = options[0];
   quality = options[1];
@@ -94,17 +91,13 @@ Future<List<List<int>>?> getPaletteFromBytes(
 /// `colorCount` - Between 2 and 256. The maximum number of colours allowed in the reduced palette
 ///
 /// `quality` - Between 1 and 10. There is a trade-off between quality and speed. The bigger the number, the faster the palette generation but the greater the likelihood that colors will be missed.
-Future<List<List<int>>?> getPaletteFromImage(Image image,
-    [int? colorCount, int? quality]) async {
+Future<List<List<int>>?> getPaletteFromImage(Image image, [int? colorCount, int? quality]) async {
   final options = _validateOptions(colorCount, quality);
   colorCount = options[0];
   quality = options[1];
 
-  final imageData = await image
-      .toByteData(format: ImageByteFormat.rawRgba)
-      .then((val) => Uint8List.view((val!.buffer)));
-  return getPaletteFromBytes(
-      imageData, image.width, image.height, colorCount, quality);
+  final imageData = await image.toByteData(format: ImageByteFormat.rawRgba).then((val) => Uint8List.view((val!.buffer)));
+  return getPaletteFromBytes(imageData, image.width, image.height, colorCount, quality);
 }
 
 enum ColorPart {
@@ -114,7 +107,7 @@ enum ColorPart {
 }
 
 class _PV {
-  static map(List array, [Function? f]) {
+  static List map(List array, [Function? f]) {
     return f != null
         ? array.map((d) {
             return f(d);
@@ -130,7 +123,7 @@ class _PV {
             : 0;
   }
 
-  static sum(List array, [Function? f]) {
+  static num sum(List array, [Function? f]) {
     final num Function(num, dynamic) combine = f != null
         ? (p, d) {
             return p + f(d);
@@ -141,7 +134,7 @@ class _PV {
     return array.fold(0, combine);
   }
 
-  static max(List array, [Function? f]) {
+  static int max(List array, [Function? f]) {
     final list = f != null ? _PV.map(array, f) : array;
     int max = list.first;
     list.skip(1).forEach((element) {
@@ -151,10 +144,7 @@ class _PV {
   }
 }
 
-var _sigbits = 5,
-    _rshift = 8 - _sigbits,
-    _maxIterations = 1000,
-    _fractByPopulations = 0.75;
+var _sigbits = 5, _rshift = 8 - _sigbits, _maxIterations = 1000, _fractByPopulations = 0.75;
 
 int _getColorIndex(int r, int g, int b) {
   return (r << 2 * _sigbits) + (g << _sigbits) + b;
@@ -168,17 +158,17 @@ class PQueue<T> {
   final contents = <T>[];
   var sorted = false;
 
-  sort([int Function(T, T)? oneTimeComparator]) {
+  void sort([int Function(T, T)? oneTimeComparator]) {
     contents.sort(oneTimeComparator ?? comparator);
     sorted = true;
   }
 
-  push(T o) {
+  void push(T o) {
     contents.add(o);
     sorted = false;
   }
 
-  peek(index) {
+  peek(int? index) {
     if (!sorted) {
       sort();
     }
@@ -202,9 +192,9 @@ class PQueue<T> {
     return contents.map<R>(f).toList();
   }
 
-  T operator [](index) => contents[index];
+  T operator [](dynamic index) => contents[index];
 
-  debug() {
+  List<T> debug() {
     if (!sorted) {
       sort();
     }
@@ -233,12 +223,12 @@ class VBox {
 
   int? _volume;
 
-  volume([force]) {
+  int volume([dynamic force]) {
     if (_volume == null || force == true) {
       _volume = (r2 - r1 + 1) * (g2 - g1 + 1) * (b2 - b1 + 1);
     }
 
-    return _volume;
+    return _volume ?? 0;
   }
 
   bool? _countSet;
@@ -265,19 +255,15 @@ class VBox {
     return _count!;
   }
 
-  copy() {
+  VBox copy() {
     return VBox(r1, r2, g1, g2, b1, b2, histo);
   }
 
   List<int>? _avg;
 
-  List<int> avg([force]) {
+  List<int> avg([dynamic force]) {
     if (_avg == null || force == true) {
-      var ntot = 0.0,
-          mult = 1 << 8 - _sigbits,
-          rsum = 0.0,
-          gsum = 0.0,
-          bsum = 0.0;
+      var ntot = 0.0, mult = 1 << 8 - _sigbits, rsum = 0.0, gsum = 0.0, bsum = 0.0;
 
       int hval, i, j, k, histoindex;
 
@@ -297,27 +283,16 @@ class VBox {
       if (ntot != 0) {
         _avg = [(rsum ~/ ntot), (gsum ~/ ntot), (bsum ~/ ntot)];
       } else {
-        _avg = <int>[
-          (mult * (r1 + r2 + 1) ~/ 2),
-          (mult * (g1 + g2 + 1) ~/ 2),
-          (mult * (b1 + b2 + 1) ~/ 2)
-        ];
+        _avg = <int>[(mult * (r1 + r2 + 1) ~/ 2), (mult * (g1 + g2 + 1) ~/ 2), (mult * (b1 + b2 + 1) ~/ 2)];
       }
     }
 
     return _avg!;
   }
 
-  contains(pixel) {
-    var rval = pixel[0] >> _rshift,
-        gval = pixel[1] >> _rshift,
-        bval = pixel[2] >> _rshift;
-    return rval >= r1 &&
-        rval <= r2 &&
-        gval >= g1 &&
-        gval <= g2 &&
-        bval >= b1 &&
-        bval <= b2;
+  bool contains(dynamic pixel) {
+    var rval = pixel[0] >> _rshift, gval = pixel[1] >> _rshift, bval = pixel[2] >> _rshift;
+    return rval >= r1 && rval <= r2 && gval >= g1 && gval <= g2 && bval >= b1 && bval <= b2;
   }
 }
 
@@ -333,12 +308,11 @@ class CMap {
 
   CMap() {
     vboxes = PQueue<VBoxElement>((a, b) {
-      return _PV.naturalOrder(
-          a.vbox.count() * a.vbox.volume(), b.vbox.count() * b.vbox.volume());
+      return _PV.naturalOrder(a.vbox.count() * a.vbox.volume(), b.vbox.count() * b.vbox.volume());
     });
   }
 
-  push(VBox vbox) {
+  void push(VBox vbox) {
     vboxes.push(VBoxElement(vbox, vbox.avg()));
   }
 
@@ -348,11 +322,11 @@ class CMap {
     });
   }
 
-  size() {
+  int size() {
     return vboxes.size();
   }
 
-  map(color) {
+  dynamic map(dynamic color) {
     var vboxes = this.vboxes;
 
     for (var i = 0; i < vboxes.size(); i++) {
@@ -364,14 +338,12 @@ class CMap {
     return nearest(color);
   }
 
-  nearest(color) {
+  double? nearest(dynamic color) {
     var vboxes = this.vboxes;
     double? d1, d2, pColor;
 
     for (var i = 0; i < vboxes.size(); i++) {
-      d2 = math.sqrt(math.pow(color[0] - vboxes.peek(i).color[0], 2) +
-          math.pow(color[1] - vboxes.peek(i).color[1], 2) +
-          math.pow(color[2] - vboxes.peek(i).color[2], 2));
+      d2 = math.sqrt(math.pow(color[0] - vboxes.peek(i).color[0], 2) + math.pow(color[1] - vboxes.peek(i).color[1], 2) + math.pow(color[2] - vboxes.peek(i).color[2], 2));
 
       if ((d1 != null && d2 < d1) || d1 == null) {
         d1 = d2;
@@ -382,7 +354,7 @@ class CMap {
     return pColor;
   }
 
-  forcebw() {
+  void forcebw() {
     var vboxes = this.vboxes;
     vboxes.sort((a, b) {
       return _PV.naturalOrder(_PV.sum(a.color), _PV.sum(b.color));
@@ -401,8 +373,7 @@ class CMap {
 }
 
 List<int?> _getHisto(List<List<int>> pixels) {
-  var histosize = 1 << 3 * _sigbits,
-      histo = List<int?>.filled(histosize, null, growable: false);
+  var histosize = 1 << 3 * _sigbits, histo = List<int?>.filled(histosize, null, growable: false);
 
   int index, rval, gval, bval;
 
@@ -417,12 +388,7 @@ List<int?> _getHisto(List<List<int>> pixels) {
 }
 
 VBox _vboxFromPixels(List pixels, List<int?> histo) {
-  var rmin = 1000000,
-      rmax = 0,
-      gmin = 1000000,
-      gmax = 0,
-      bmin = 1000000,
-      bmax = 0;
+  var rmin = 1000000, rmax = 0, gmin = 1000000, gmax = 0, bmin = 1000000, bmax = 0;
 
   int rval, gval, bval;
 
@@ -449,28 +415,25 @@ VBox _vboxFromPixels(List pixels, List<int?> histo) {
   return VBox(rmin, rmax, gmin, gmax, bmin, bmax, histo);
 }
 
-_safeSetArray(List list, index, element) {
+void _safeSetArray(List list, index, element) {
   if (!(list.length > index)) {
     list.addAll(List.filled(index - list.length + 1, null, growable: false));
   }
   list[index] = element;
 }
 
-_safeGetArray(List list, int index) {
+dynamic _safeGetArray(List list, int index) {
   if (!(list.length > index) || index < 0) {
     return null;
   }
   return list[index];
 }
 
-_medianCutApply(List<int?> histo, VBox vbox) {
+List _medianCutApply(List<int?> histo, VBox vbox) {
   if (vbox.count() == 0) {
     return [null, null];
   }
-  var rw = vbox.r2 - vbox.r1 + 1,
-      gw = vbox.g2 - vbox.g1 + 1,
-      bw = vbox.b2 - vbox.b1 + 1,
-      maxw = _PV.max([rw, gw, bw]);
+  var rw = vbox.r2 - vbox.r1 + 1, gw = vbox.g2 - vbox.g1 + 1, bw = vbox.b2 - vbox.b1 + 1, maxw = _PV.max([rw, gw, bw]);
 
   if (vbox.count() == 1) {
     return [vbox.copy()];
@@ -568,16 +531,13 @@ _medianCutApply(List<int?> histo, VBox vbox) {
           d2 = math.max(vboxdim1, (i - 1 - left / 2) ~/ 1);
         }
 
-        while (_safeGetArray(partialsum, d2) == null ||
-            _safeGetArray(partialsum, d2) == 0) {
+        while (_safeGetArray(partialsum, d2) == null || _safeGetArray(partialsum, d2) == 0) {
           d2++;
         }
 
         count2 = _safeGetArray(lookaheadsum, d2);
 
-        while ((count2 == 0 || count2 == null) &&
-            (_safeGetArray(partialsum, d2 - 1) != null &&
-                _safeGetArray(partialsum, d2 - 1) != 0)) {
+        while ((count2 == 0 || count2 == null) && (_safeGetArray(partialsum, d2 - 1) != null && _safeGetArray(partialsum, d2 - 1) != 0)) {
           count2 = _safeGetArray(lookaheadsum, --d2);
         }
 
@@ -655,9 +615,7 @@ CMap? quantize(List<List<int>> pixels, int? maxcolors) {
         continue;
       }
 
-      var vboxes = _medianCutApply(histo, vbox),
-          vbox1 = vboxes[0],
-          vbox2 = vboxes[1];
+      var vboxes = _medianCutApply(histo, vbox), vbox1 = vboxes[0], vbox2 = vboxes[1];
 
       if (vbox1 == null) {
         return;
